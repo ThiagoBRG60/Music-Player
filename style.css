@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   transition: 0.3s;
+   font-family: "Inter", sans-serif;
+   text-decoration: none;
+   list-style: none;
+}
+body {
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: #DDDDDD;
+}
+.musicPlayer {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.musicInfo {
+   width: 450px;
+   height: 130px;
+   padding: 0 0 0 155px;
+   display: flex;
+   align-items: center;
+   color: #ffffffbe;
+   border-radius: 12px;
+   background-color: #000000;
+   position: relative;
+}
+.info {
+   width: 95%;
+   display: flex;
+   flex-direction: column;
+}
+.info h3 {
+   color: #fff;
+}
+.info p {
+   margin-bottom: 10px;
+}
+
+/* Disc */
+
+.disc {
+   width: 150px;
+   height: 150px;
+   border-radius: 50%;
+   position: absolute;
+   top: 0;
+   left: -15px;
+   border: 2px solid #fff;
+   z-index: 1;
+}
+.disc::before {
+   content: "";
+   position: absolute;
+   transform: translate(-50%, -50%);
+   top: 50%;
+   left: 50%;
+   width: 20%;
+   height: 20%;
+   background-color: #fff;
+   border-radius: 50%;
+}
+.disc.playing {
+   animation: spinning 4s linear infinite;
+}
+@keyframes spinning {
+   to {
+      transform: rotate(360deg);
+   }
+}
+
+/* Progress Bar */
+
+.progressBar {
+   width: 100%;
+   height: 6px;
+   border-radius: 5px;
+   margin-bottom: 10px;
+   background-color: #505050;
+   cursor: pointer;
+}
+.progress {
+   width: 0%;
+   height: 6px;
+   border-radius: 5px;
+   background-color: #10A351;
+}
+
+/* Controls */
+
+.controls {
+   width: 470px;
+   height: 100px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 30px;
+   border-radius: 18px;
+   background-color: #292929;
+   position: relative;
+   top: -6px;
+   color: #fff;
+   font-size: 30px;
+}
+.controls .play-pause {
+   position: relative;
+   z-index: 1;
+}
+.controls .play-pause:hover {
+   transform: scale(1.05);
+}
+.controls .play-pause:active {
+   transform: scale(1);
+}
+.controls .fa-solid.play-pause::after {
+   content: "";
+   position: absolute;
+   transform: translate(-50%,-50%);
+   top: 50%;
+   left: 50%;
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   background-color: #10A351;
+   z-index: -1;
+}
+.controls i {
+   cursor: pointer;
+}
+.controls i:not(:nth-child(2)) {
+   color: #ffffffa9;
+}
+.controls i:hover:not(:nth-child(2)) {
+   color: #fff;
+}
+
+/* Upload Songs Section */
+
+.uploadSongs {
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   gap: 20px;
+   padding: 20px;
+   position: absolute;
+   top: 0;
+   left: 0;
+}
+.uploadSongs > button {
+   border-radius: 5px;
+   font-weight: 600;
+   padding: 10px;
+   color: #fff;
+   border: 0;
+   cursor: pointer;
+   background-color: #10A351;
+}
+.uploadSongs > button:hover {
+   background-color: #11b45b;
+   transform: scale(1.05);
+}
+.uploadSongs > button:active {
+   transform: scale(0.9);
+}
+.uploadDetails {
+   display: none;
+   background-color: #fff;
+   padding: 60px 40px;
+   border-radius: 10px;
+   position: relative;
+   transition: 1s;
+   transform: translateX(-150%);
+}
+.uploadDetails > i {
+   font-size: 18px;
+   position: absolute;
+   top: 15px;
+   right: 15px;
+   color: #000;
+   opacity: 0.6;
+   cursor: pointer;
+}
+.uploadDetails > i:hover {
+   opacity: 1;
+}
+.uploadDetails form ul {
+   display: flex;
+   flex-direction: column;
+   gap: 15px;
+}
+.uploadDetails form ul li {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+.uploadDetails form ul li:not(:nth-child(4)):not(:nth-child(5)) input {
+   height: 30px;
+   border-radius: 10px;
+   border: 1px solid #00000027;
+   outline: 0;
+   padding-left: 10px;
+}
+.uploadDetails form input[type="file"]::-webkit-file-upload-button {
+   padding: 4px 8px;
+   border: 0;
+   border-radius: 20px;
+   color: #fff;
+   background-color: #10A351;
+}
+.uploadDetails form button {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 10px;
+   border-radius: 5px;
+   padding: 10px 15px;
+   border: 0;
+   color: #10A351;
+   font-weight: 600;
+   border: 1px solid #10A351;
+   background-color: #fff;
+   margin-top: 10px;
+   cursor: pointer;
+}
+.uploadDetails form button:hover {
+   background-color: #10a35218;
+}
+
+/* Upload Section Animation */
+
+.uploadDetails.selected {
+   transform: translateX(-0%);
+}
+
+/* Success Message */
+
+.successMessage {
+   transform: translate(-50%);
+   position: absolute;
+   top: -50px;
+   left: 50%;
+   border-radius: 6px;
+   color: #10A351;
+   font-weight: 600;
+   padding: 10px 30px;
+   border: 1px solid #10A351;
+   background-color: #fff;
+   transition: 1s;
+}
+.successMessage p {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+.successMessage.success {
+   top: 10px;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+   <link rel="stylesheet" href="./style.css">
+   <title>Music Player</title>
+</head>
+<body>
+   
+   <main>
+      <section class="uploadSongs">
+         <button type="button">Upload New Song</button>
+
+         <div class="uploadDetails">
+            <i class="fa-solid fa-xmark"></i>
+            <form>
+               <ul>
+                  <li>
+                     <label for="songName">Song Name</label>
+                     <input type="text" name="songName" id="songName" placeholder="Song" required>
+                  </li>
+                  <li>
+                     <label for="artistName">Artist Name</label>
+                     <input type="text" name="artistName" id="artistName" placeholder="Artist" required>
+                  </li>
+                  <li>
+                     <label for="songDuration">Song Duration</label>
+                     <input type="text" name="songDuration" id="songDuration" placeholder="4:43" required>
+                  </li>
+                  <li>
+                     <label for="albumCover">Album Cover File</label>
+                     <input type="file" name="albumCover" id="albumCover" accept="image/*" required>
+                  </li>
+                  <li>
+                     <label for="songFile">Song File</label>
+                     <input type="file" name="songFile" id="songFile" accept="audio/*" required>
+                  </li>
+                  <button type="submit">Send Song</button>
+               </ul>
+            </form>
+         </div>
+      </section>
+      
+      <div class="successMessage">
+         <p>Song Added <i class="fa-solid fa-check"></i></p>
+      </div>
+
+      <section class="musicPlayer">
+         
+         <div class="musicInfo">
+            <div class="disc"></div>
+            <div class="info">
+               <h3></h3>
+               <p></p>
+               <div class="progressBar">
+                  <div draggable="true" class="progress"></div>
+               </div>
+               <p><span class="currentTime"></span> - <span class="duration"></span></p>
+            </div>
+         </div>
+
+         <div class="controls">
+            <i class="fa-solid fa-backward"></i>
+            <i class="play-pause fa-solid fa-play"></i>
+            <i class="fa-solid fa-forward"></i>
+         </div>
+
+      </section>
+   </main>
+
+   <script src="./index.js" type="module"></script>
+   <script src="./upload.js" type="module" ></script>
+</body>
+</html>
