@@ -6,9 +6,10 @@ const currentTime = document.querySelector(".currentTime")
 const songDuration = document.querySelector(".duration");
 const discImage = document.querySelector(".disc");
 const progressBar = document.querySelector(".progress");
-const controls = document.querySelectorAll(".controls i");
+const controls = document.querySelectorAll(".controls > i");
 
 const newSong = new Audio;
+newSong.volume = "0.05"
 
 let currentSong = 0
 let songPlaying = false
@@ -23,7 +24,6 @@ function showInfo(songIndex = 0) {
    discImage.style.background = `url(${albumCover}) no-repeat`
    discImage.style.backgroundSize = "cover"
    newSong.src = songSrc
-   newSong.volume = "0.15"
 }
 showInfo()
 
@@ -44,11 +44,11 @@ controls.forEach((button, index) => {
 
 function prevSong() {
    if (currentSong === 0) {
-      return
+      currentSong = songs.length - 1
    }else if(currentSong > 0) {
       currentSong--
-      showInfo(currentSong)
    }
+   showInfo(currentSong)
 
    if (songPlaying) {
       newSong.play()
@@ -57,11 +57,11 @@ function prevSong() {
 
 function nextSong() {
    if (currentSong === songs.length - 1) {
-      return
+      currentSong = 0
    }else if(currentSong < songs.length - 1) {
       currentSong++
-      showInfo(currentSong)
    }
+   showInfo(currentSong)
 
    if (songPlaying) {
       newSong.play()
@@ -69,23 +69,21 @@ function nextSong() {
 }
 
 function playPauseSong() {
-   if (controls[1].classList.contains("fa-pause")) {
-      songPlaying = false
-      discImage.classList.remove("playing")
-      controls[1].classList.add("fa-play")
-      controls[1].classList.remove("fa-pause")
-      newSong.pause()
-      return
-   }
-   
    if (!songPlaying) {
       songPlaying = true
       discImage.classList.add("playing")
-      newSong.play()
       controls[1].classList.remove("fa-play")
-      controls[1].classList.add("fa-pause")
+      controls[1].classList.toggle("fa-pause", songPlaying)
+      newSong.play()
       updateSongTime()
+   }else {
+      songPlaying = false
+      newSong.pause()
+      controls[1].classList.add("fa-play")
+      discImage.classList.remove("playing")
    }
+   console.log(newSong.duration);
+   console.log(newSong.currentTime);
 }
 
 const barWidth = progressBar.parentElement.scrollWidth
@@ -97,7 +95,6 @@ function updateSongTime() {
          if (newSong.currentTime === newSong.duration) {
             if (currentSong === songs.length - 1) {
                currentSong = -1
-               console.log(currentSong);
                return
             }
             currentSong++
@@ -131,3 +128,38 @@ progressBar.parentElement.addEventListener("click", (e) => {
    newSong.currentTime = newTime
    updateSongTime()
 })
+
+const volumeBar = document.querySelector(".volume-controls input");
+const volumeButton = document.querySelector(".volume-controls .fa-volume-high");
+
+volumeButton.addEventListener("click", () => {
+   newSong.volume = 0
+   volumeButton.classList.toggle("fa-volume-xmark")
+   initializeVolume()
+})
+
+function unMute() {
+   if (newSong.volume > 0.02) {
+      volumeButton.classList.remove("fa-volume-xmark")
+   }
+}
+
+volumeBar.addEventListener("click", () => {
+   unMute()
+})
+
+volumeBar.addEventListener("input", () => {
+   if (newSong.volume == 0.02) {
+      volumeButton.classList.add("fa-volume-xmark")
+   }
+   unMute()
+   newSong.volume = volumeBar.value / 100
+   initializeVolume()
+})
+
+function initializeVolume() {
+   const widthBar = newSong.volume * 100
+   volumeBar.value = widthBar
+   volumeBar.style.background = `linear-gradient(to right, #10A351 ${widthBar}%, #ffffffa9 0%)`;
+}
+initializeVolume()
